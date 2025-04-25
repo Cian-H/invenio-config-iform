@@ -32,14 +32,14 @@
 
 invenio module that adds I-Form configs.
 
-Override configs from diffrent invenio modules to meet TU Graz requirement:
+Override configs from invenio modules with I-Form configurations:
 
 * Invenio-App
 * Invenio-Mail
 * Invenio-shibboleth
 * Invenio-accounts
 * Flask-security
-* Defined routes for TUG
+* Defined routes for I-Form
 
 Further documentation is available on
 https://invenio-config-iform.readthedocs.io/
