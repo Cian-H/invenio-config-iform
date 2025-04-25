@@ -2,13 +2,13 @@
 #
 # Copyright (C) 2020-2024 Graz University of Technology.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
 """TU Graz permission-policy for RDMRecordService.
 
-To use, set config-variable `RDM_PERMISSION_POLICY` to `TUGrazRDMRecordPermissionPolicy`.
+To use, set config-variable `RDM_PERMISSION_POLICY` to `IformRDMRecordPermissionPolicy`.
 
 Policies list **what actions** can be done **by whom**
 over an implied category of objects (typically records). A Policy is
@@ -52,11 +52,11 @@ from invenio_records_permissions.generators import (
 from invenio_records_permissions.policies.records import RecordPermissionPolicy
 from invenio_users_resources.services.permissions import UserManager
 
-from .generators import AllowedFromIPNetwork, RecordSingleIP, TUGrazAuthenticatedUser
+from .generators import AllowedFromIPNetwork, IformAuthenticatedUser, RecordSingleIP
 
 
-class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
-    """Overwrite authenticatedness to mean `tugraz_authenticated` rather than *signed up*."""
+class IformRDMRecordPermissionPolicy(RecordPermissionPolicy):
+    """Overwrite authenticatedness to mean `iform_authenticated` rather than *signed up*."""
 
     NEED_LABEL_TO_ACTION = {
         "bucket-update": "update_files",
@@ -91,8 +91,8 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         RecordSingleIP(),
     ]
 
-    can_tugraz_authenticated = [TUGrazAuthenticatedUser(), SystemProcess()]
-    can_authenticated = can_tugraz_authenticated
+    can_iform_authenticated = [IformAuthenticatedUser(), SystemProcess()]
+    can_authenticated = can_iform_authenticated
     can_all = [
         AnyUser(),
         SystemProcess(),
@@ -126,12 +126,12 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_get_content_files = [
         IfFileIsLocal(then_=can_read_files, else_=[SystemProcess()]),
     ]
-    can_create = can_tugraz_authenticated
+    can_create = can_iform_authenticated
 
     #
     # Drafts
     #
-    can_search_drafts = can_tugraz_authenticated
+    can_search_drafts = can_iform_authenticated
     can_read_draft = can_preview
     can_draft_read_files = can_preview + [ResourceAccessToken("read")]
     can_update_draft = can_review
@@ -148,14 +148,14 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_manage_files = [
         IfConfig(
             "RDM_ALLOW_METADATA_ONLY_RECORDS",
-            then_=[IfNewRecord(then_=can_tugraz_authenticated, else_=can_review)],
+            then_=[IfNewRecord(then_=can_iform_authenticated, else_=can_review)],
             else_=[],
         ),
     ]
     can_manage_record_access = [
         IfConfig(
             "RDM_ALLOW_RESTRICTED_RECORDS",
-            then_=[IfNewRecord(then_=can_tugraz_authenticated, else_=can_review)],
+            then_=[IfNewRecord(then_=can_iform_authenticated, else_=can_review)],
             else_=[],
         ),
     ]

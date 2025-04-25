@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2020 Mojib Wali.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
@@ -18,7 +18,7 @@ include .dockerignore
 include .editorconfig
 include .tx/config
 prune docs/_build
-recursive-include invenio_config_tugraz/translations *.po *.pot *.mo
+recursive-include invenio_config_iform/translations *.po *.pot *.mo
 
 # added by check_manifest.py
 include *.md
@@ -38,18 +38,18 @@ recursive-include tests *.py
 
 
 # added by check_manifest.py
-recursive-include invenio_config_tugraz *.crt
-recursive-include invenio_config_tugraz *.json
-recursive-include invenio_config_tugraz *.key
-recursive-include invenio_config_tugraz *.xml
-recursive-include invenio_config_tugraz *.gitkeep
-recursive-include invenio_config_tugraz *.txt
-recursive-include invenio_config_tugraz *.html
+recursive-include invenio_config_iform *.crt
+recursive-include invenio_config_iform *.json
+recursive-include invenio_config_iform *.key
+recursive-include invenio_config_iform *.xml
+recursive-include invenio_config_iform *.gitkeep
+recursive-include invenio_config_iform *.txt
+recursive-include invenio_config_iform *.html
 
 
 # added by check-manifest
-recursive-include invenio_config_tugraz *.csv
+recursive-include invenio_config_iform *.csv
 
 # added by check-manifest
-recursive-include invenio_config_tugraz *.pdf
+recursive-include invenio_config_iform *.pdf
 include .git-blame-ignore-revs

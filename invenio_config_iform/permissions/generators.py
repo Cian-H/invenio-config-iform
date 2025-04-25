@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2020-2024 Graz University of Technology.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
@@ -54,7 +54,7 @@ from invenio_access.permissions import any_user
 from invenio_records_permissions.generators import Generator
 from invenio_search.engine import dsl
 
-from .roles import tugraz_authenticated_user
+from .roles import iform_authenticated_user
 
 
 class RecordSingleIP(Generator):
@@ -124,7 +124,7 @@ class RecordSingleIP(Generator):
         except RuntimeError:
             return False
 
-        single_ips = current_app.config["CONFIG_TUGRAZ_SINGLE_IPS"]
+        single_ips = current_app.config["CONFIG_IFORM_SINGLE_IPS"]
 
         return user_ip in single_ips
 
@@ -191,7 +191,7 @@ class AllowedFromIPNetwork(Generator):
         except RuntimeError:
             return False
 
-        network = current_app.config["CONFIG_TUGRAZ_IP_NETWORK"]
+        network = current_app.config["CONFIG_IFORM_IP_NETWORK"]
 
         try:
             return ip_address(user_ip) in ip_network(network)
@@ -199,9 +199,9 @@ class AllowedFromIPNetwork(Generator):
             return False
 
 
-class TUGrazAuthenticatedUser(Generator):
-    """Generates the `tugraz_authenticated_user` role-need."""
+class IformAuthenticatedUser(Generator):
+    """Generates the `iform_authenticated_user` role-need."""
 
     def needs(self, **__: dict) -> list[Need]:
         """Generate needs to be checked against current user identity."""
-        return [tugraz_authenticated_user]
+        return [iform_authenticated_user]

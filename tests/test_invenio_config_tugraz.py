@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2020-2024 Graz University of Technology.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
@@ -10,12 +10,12 @@
 
 from flask import Flask
 
-from invenio_config_tugraz import InvenioConfigTugraz
+from invenio_config_iform import InvenioConfigIform
 
 
 def test_version() -> None:
     """Test version import."""
-    from invenio_config_tugraz import __version__
+    from invenio_config_iform import __version__
 
     assert __version__
 
@@ -23,11 +23,11 @@ def test_version() -> None:
 def test_init() -> None:
     """Test extension initialization."""
     app = Flask("testapp")
-    ext = InvenioConfigTugraz(app)
-    assert "invenio-config-tugraz" in app.extensions
+    ext = InvenioConfigIform(app)
+    assert "invenio-config-iform" in app.extensions
 
     app = Flask("testapp")
-    ext = InvenioConfigTugraz()
-    assert "invenio-config-tugraz" not in app.extensions
+    ext = InvenioConfigIform()
+    assert "invenio-config-iform" not in app.extensions
     ext.init_app(app)
-    assert "invenio-config-tugraz" in app.extensions
+    assert "invenio-config-iform" in app.extensions

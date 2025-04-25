@@ -2,11 +2,11 @@
 #
 # Copyright (C) 2020-2024 Graz University of Technology.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
-"""invenio module that adds tugraz configs."""
+"""invenio module that adds I-Form configs."""
 
 from flask import Flask
 
@@ -14,8 +14,8 @@ from . import config
 from .custom_fields import ip_network, single_ip
 
 
-class InvenioConfigTugraz:
-    """invenio-config-tugraz extension."""
+class InvenioConfigIform:
+    """invenio-config-iform extension."""
 
     def __init__(self, app: Flask = None) -> None:
         """Extension initialization."""
@@ -26,12 +26,12 @@ class InvenioConfigTugraz:
         """Flask application initialization."""
         self.init_config(app)
         self.add_custom_fields(app)
-        app.extensions["invenio-config-tugraz"] = self
+        app.extensions["invenio-config-iform"] = self
 
     def init_config(self, app: Flask) -> None:
         """Initialize configuration."""
         for k in dir(config):
-            if k.startswith("INVENIO_CONFIG_TUGRAZ_"):
+            if k.startswith("INVENIO_CONFIG_IFORM_"):
                 app.config.setdefault(k, getattr(config, k))
 
     def add_custom_fields(self, app: Flask) -> None:
@@ -57,5 +57,5 @@ def rank_blueprint_higher(app: Flask) -> None:
     """
     bps = app.blueprints
     for blueprint_name in list(bps.keys()):
-        if blueprint_name != "invenio_config_tugraz":
+        if blueprint_name != "invenio_config_iform":
             bps.update({blueprint_name: bps.pop(blueprint_name)})

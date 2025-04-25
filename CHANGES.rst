@@ -1,7 +1,7 @@
 ..
     Copyright (C) 2020 - 2022 Graz University of Technology.
 
-    invenio-config-tugraz is free software; you can redistribute it and/or
+    invenio-config-iform is free software; you can redistribute it and/or
     modify it under the terms of the MIT License; see LICENSE file for more
     details.
 
@@ -15,7 +15,7 @@ Version v0.12.5 (release 2024-07-29)
 
 Version v0.12.3 (release 2024-07-25)
 
-- fix(tugraz_authenticated): missmatch of role name
+- fix(iform_authenticated): missmatch of role name
 
 
 Version v0.12.2 (release 2024-07-19)

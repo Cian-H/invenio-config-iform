@@ -10,7 +10,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/tu-graz-library/invenio-config-tugraz/issues.
+Report bugs at https://github.com/Cian-H/invenio-config-iform/issues.
 
 If you are reporting a bug, please include:
 
@@ -33,15 +33,15 @@ is open to whoever wants to implement it.
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
-invenio-config-tugraz could always use more documentation, whether as part of the
-official invenio-config-tugraz docs, in docstrings, or even on the web in blog posts,
+invenio-config-iform could always use more documentation, whether as part of the
+official invenio-config-iform docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
 The best way to send feedback is to file an issue at
-https://github.com/tu-graz-library/invenio-config-tugraz/issues.
+https://github.com/Cian-H/invenio-config-iform/issues.
 
 If you are proposing a feature:
 
@@ -53,14 +53,14 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `invenio-config-tugraz` for local development.
+Ready to contribute? Here's how to set up `invenio-config-iform` for local development.
 
 1. Fork the `https://github.com/https://github.com/mb-` repo on GitHub.
 2. Clone your fork locally:
 
    .. code-block:: console
 
-      $ git clone git@github.com:your_name_here/invenio-config-tugraz.git
+      $ git clone git@github.com:your_name_here/invenio-config-iform.git
 
 3. Install your local copy into a virtualenv. Assuming you have
    virtualenvwrapper installed, this is how you set up your fork for local
@@ -68,8 +68,8 @@ Ready to contribute? Here's how to set up `invenio-config-tugraz` for local deve
 
    .. code-block:: console
 
-      $ mkvirtualenv invenio-config-tugraz
-      $ cd invenio-config-tugraz/
+      $ mkvirtualenv invenio-config-iform
+      $ cd invenio-config-iform/
       $ pip install -e .[all]
 
 4. Create a branch for local development:
@@ -114,5 +114,5 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring.
 3. The pull request should work for Python 3.6 and 3.7. Check
-   https://github.com/github/tu-graz-library/invenio-config-tugraz//actions?query=event%3Apull_request
+   https://github.com/github/Cian-H/invenio-config-iform//actions?query=event%3Apull_request
    and make sure that the tests pass for all supported Python versions.

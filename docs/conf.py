@@ -2,13 +2,13 @@
 #
 # Copyright (C) 2020 Mojib Wali.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
 """Sphinx configuration."""
 
-from invenio_config_tugraz import __version__
+from invenio_config_iform import __version__
 
 # import sphinx.environment
 
@@ -46,7 +46,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "invenio-config-tugraz"
+project = "invenio-config-iform"
 copyright = "2022, TU Graz"
 author = "TU Graz"
 
@@ -108,15 +108,15 @@ todo_include_todos = False
 html_theme = "alabaster"
 
 html_theme_options = {
-    "description": "invenio module that adds tugraz configs.",
+    "description": "invenio module that adds iform configs.",
     "github_user": "TU Graz",
-    "github_repo": "invenio-config-tugraz",
+    "github_repo": "invenio-config-iform",
     "github_button": False,
     "github_banner": True,
     "show_powered_by": False,
     "extra_nav_links": {
-        "invenio-config-tugraz@GitHub": "https://github.com/tu-graz-library/invenio-config-tugraz",
-        "invenio-config-tugraz@PyPI": "https://pypi.python.org/pypi/invenio-config-tugraz/",
+        "invenio-config-iform@Github": "https://github.com/Cian-H/invenio-config-iform",
+        "invenio-config-iform@PyPI": "https://pypi.python.org/pypi/invenio-config-iform/",
     },
 }
 
@@ -221,7 +221,7 @@ html_sidebars = {
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "invenio-config-tugraz_namedoc"
+htmlhelp_basename = "invenio-config-iform_namedoc"
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -242,8 +242,8 @@ latex_elements = {
 latex_documents = [
     (
         master_doc,
-        "invenio-config-tugraz.tex",
-        "invenio-config-tugraz Documentation",
+        "invenio-config-iform.tex",
+        "invenio-config-iform Documentation",
         "Mojib Wali",
         "manual",
     ),
@@ -277,8 +277,8 @@ latex_documents = [
 man_pages = [
     (
         master_doc,
-        "invenio-config-tugraz",
-        "invenio-config-tugraz Documentation",
+        "invenio-config-iform",
+        "invenio-config-iform Documentation",
         [author],
         1,
     )
@@ -296,11 +296,11 @@ man_pages = [
 texinfo_documents = [
     (
         master_doc,
-        "invenio-config-tugraz",
-        "invenio-config-tugraz Documentation",
+        "invenio-config-iform",
+        "invenio-config-iform Documentation",
         author,
-        "invenio-config-tugraz",
-        "invenio module that adds tugraz configs.",
+        "invenio-config-iform",
+        "invenio module that adds iform configs.",
         "Miscellaneous",
     ),
 ]

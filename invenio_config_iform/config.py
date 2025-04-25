@@ -2,36 +2,36 @@
 #
 # Copyright (C) 2020-2024 Graz University of Technology.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
-"""invenio module that adds tugraz configs."""
+"""invenio module that adds I-Form configs."""
 
 from invenio_i18n import gettext as _
 
-CONFIG_TUGRAZ_SHIBBOLETH = False
+CONFIG_IFORM_SHIBBOLETH = False
 """Set True if SAML is configured"""
 
-CONFIG_TUGRAZ_SINGLE_IPS = []
+CONFIG_IFORM_SINGLE_IPS = []
 """Allows access to users whose IP address is listed.
 
-INVENIO_CONFIG_TUGRAZ_SINGLE_IPS =
+INVENIO_CONFIG_IFORM_SINGLE_IPS =
     ["127.0.0.1", "127.0.0.2"]
 """
 
-CONFIG_TUGRAZ_IP_RANGES = []
+CONFIG_IFORM_IP_RANGES = []
 """Allows access to users whose range of IP address is listed.
 
-INVENIO_CONFIG_TUGRAZ_IP_RANGES =
+INVENIO_CONFIG_IFORM_IP_RANGES =
 [["127.0.0.2", "127.0.0.99"], ["127.0.1.3", "127.0.1.5"]]
 """
 
-CONFIG_TUGRAZ_IP_NETWORK = ""
+CONFIG_IFORM_IP_NETWORK = ""
 """Allows access to users who are in the IP network."""
 
 
-CONFIG_TUGRAZ_ROUTES = {
+CONFIG_IFORM_ROUTES = {
     "guide": "/guide",
     "terms": "/terms",
     "gdpr": "/gdpr",
@@ -201,7 +201,7 @@ If False, you won't be able to login via the web UI.
 
 Instead if you have a overriden template somewhere in your config.py:
 like this:
-SECURITY_LOGIN_USER_TEMPLATE = 'invenio_theme_tugraz/accounts/login.html'
+SECURITY_LOGIN_USER_TEMPLATE = 'invenio_theme_iform/accounts/login.html'
 then you can remove this condition from header_login.htm:
 {%- if config.ACCOUNTS %}
 to render your overriden login.html
@@ -220,8 +220,8 @@ RECAPTCHA_PRIVATE_KEY = None
 # See:
 # https://invenio-records-permissions.readthedocs.io/en/latest/configuration.html
 # Uncomment these to enable overriding RDM permissions
-# from .rdm_permissions import TUGRAZRDMRecordServiceConfig
-# RDM_RECORDS_BIBLIOGRAPHIC_SERVICE_CONFIG = TUGRAZRDMRecordServiceConfig
+# from .rdm_permissions import IformRDMRecordServiceConfig
+# RDM_RECORDS_BIBLIOGRAPHIC_SERVICE_CONFIG = IformRDMRecordServiceConfig
 """Access control configuration for records."""
 
 # invenio-rdm-records

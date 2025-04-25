@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2022-2024 Graz University of Technology.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
@@ -38,8 +38,8 @@ def get_identity_from_user_by_email(email: str | None = None) -> Identity:
     return identity
 
 
-def tugraz_account_setup_extension(user, account_info) -> None:  # noqa: ANN001, ARG001
-    """Add tugraz_authenticated role to user after SAML-login was acknowledged.
+def iform_account_setup_extension(user, account_info) -> None:  # noqa: ANN001, ARG001
+    """Add iform_authenticated role to user after SAML-login was acknowledged.
 
     To use, have `acs_handler_factory` call invenio_saml's `default_account_setup` first,
     then this function second.
@@ -49,25 +49,25 @@ def tugraz_account_setup_extension(user, account_info) -> None:  # noqa: ANN001,
         # invenio.cfg
         from invenio_saml.handlers import default_account_setup, acs_handler_factory
 
-        def tugraz_account_setup(user, account_info):
+        def iform_account_setup(user, account_info):
             # links external `account_info` with our database's `user` for future logins
             default_account_setup(user, account_info)
-            tugraz_account_setup_extension(user, account_info)
+            iform_account_setup_extension(user, account_info)
 
         SSO_SAML_IDPS = {
-            "my-tugraz-idp": {
+            "my-iform-idp": {
                 ...
                 "acs_handler": acs_handler_factory(
-                    "my-tugraz-idp", account_setup=tugraz_account_setup
+                    "my-iform-idp", account_setup=iform_account_setup
                 )
             }
         }
 
-    For this to work, the role tugraz_authenticated must have been created
-    (e.g. via `invenio roles create tugraz_authenticated`).
+    For this to work, the role iform_authenticated must have been created
+    (e.g. via `invenio roles create iform_authenticated`).
     """
     user_email = account_info["user"]["email"]
 
     # NOTE: `datastore.commit`ing will be done by acs_handler that calls this func
-    # NOTE: this is a No-Op when user_email already has role tugraz_authenticated
-    current_accounts.datastore.add_role_to_user(user_email, "tugraz_authenticated")
+    # NOTE: this is a No-Op when user_email already has role iform_authenticated
+    current_accounts.datastore.add_role_to_user(user_email, "iform_authenticated")

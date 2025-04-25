@@ -3,7 +3,7 @@
 # Copyright (C) 2020 Mojib Wali.
 # Copyright (C) 2020-2024 Graz University of Technology.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
@@ -17,7 +17,7 @@ fixtures are available.
 import pytest
 from flask import Flask
 
-from invenio_config_tugraz import InvenioConfigTugraz
+from invenio_config_iform import InvenioConfigIform
 
 
 @pytest.fixture(scope="module")
@@ -27,7 +27,7 @@ def create_app(instance_path: str) -> Flask:
     def factory(**config: str) -> Flask:
         app = Flask("testapp", instance_path=instance_path)
         app.config.update(**config)
-        InvenioConfigTugraz(app)
+        InvenioConfigIform(app)
         return app
 
     return factory

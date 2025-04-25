@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2024 Graz University of Technology.
 #
-# invenio-config-tugraz is free software; you can redistribute it and/or
+# invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
@@ -10,7 +10,7 @@
 
 from invenio_rdm_records.services.permissions import RDMRecordPermissionPolicy
 
-from invenio_config_tugraz.permissions.policies import TUGrazRDMRecordPermissionPolicy
+from invenio_config_iform.permissions.policies import IformRDMRecordPermissionPolicy
 
 ALLOWED_DIFFERENCES = {
     "can_authenticated",
@@ -19,15 +19,15 @@ ALLOWED_DIFFERENCES = {
     "can_view",
     "can_all",
     "can_search_drafts",
-    "can_tugraz_authenticated",
+    "can_iform_authenticated",
 }
 
 
 def test_policies_synced() -> None:
     """Make sure our permission-policy stays synced with invenio's."""
-    tugraz_cans = {
-        name: getattr(TUGrazRDMRecordPermissionPolicy, name)
-        for name in dir(TUGrazRDMRecordPermissionPolicy)
+    iform_cans = {
+        name: getattr(IformRDMRecordPermissionPolicy, name)
+        for name in dir(IformRDMRecordPermissionPolicy)
         if name.startswith("can_")
     }
     rdm_cans = {
@@ -37,52 +37,52 @@ def test_policies_synced() -> None:
     }
 
     # check whether same set of `can_<action>`s`
-    if extras := set(tugraz_cans) - set(rdm_cans) - ALLOWED_DIFFERENCES:
+    if extras := set(iform_cans) - set(rdm_cans) - ALLOWED_DIFFERENCES:
         msg = f"""
         TU Graz's permission-policy has additional fields over invenio-rdm's:{extras}
         if this is intentional, add to ALLOWED_DIFFERENCES in test-file
-        otherwise remove extraneous fields from TUGrazRDMRecordPermissionPolicy
+        otherwise remove extraneous fields from IformRDMRecordPermissionPolicy
         """
         raise KeyError(msg)
 
-    if missing := set(rdm_cans) - set(tugraz_cans):
+    if missing := set(rdm_cans) - set(iform_cans):
         msg = f"""
         invenio-rdm's permission-policy has fields unhandled by TU Graz's: {missing}
         if this is intentional, add to ALLOWED_DIFFERENCES
-        otherwise set the corresponding fields in TUGrazRDMRecordPermissionPolicy
+        otherwise set the corresponding fields in IformRDMRecordPermissionPolicy
         """
         raise KeyError(msg)
 
     # check whether same permission-generators used for same `can_<action>`
-    for can_name in rdm_cans.keys() & tugraz_cans.keys():
+    for can_name in rdm_cans.keys() & iform_cans.keys():
         if can_name in ALLOWED_DIFFERENCES:
             continue
 
-        tugraz_can = tugraz_cans[can_name]
+        iform_can = iform_cans[can_name]
         rdm_can = rdm_cans[can_name]
 
         # permission-Generators don't implement equality checks for their instances
         # we can however compare which types (classes) of Generators are used...
-        if {type(gen) for gen in tugraz_can} != {type(gen) for gen in rdm_can}:
+        if {type(gen) for gen in iform_can} != {type(gen) for gen in rdm_can}:
             msg = f"""
             permission-policy for `{can_name}` differs between TU-Graz and invenio-rdm
             if this is intentional, add to ALLOWED_DIFFERENCES in test-file
-            otherwise fix TUGrazRDMRecordPermissionPolicy
+            otherwise fix IformRDMRecordPermissionPolicy
             """
             raise ValueError(msg)
 
     # check whether same `NEED_LABEL_TO_ACTION`
-    tugraz_label_to_action = TUGrazRDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION
+    iform_label_to_action = IformRDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION
     rdm_label_to_action = RDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION
 
-    for label in tugraz_label_to_action.keys() & rdm_label_to_action.keys():
+    for label in iform_label_to_action.keys() & rdm_label_to_action.keys():
         if label in ALLOWED_DIFFERENCES:
             continue
 
-        if tugraz_label_to_action.get(label) != rdm_label_to_action.get(label):
+        if iform_label_to_action.get(label) != rdm_label_to_action.get(label):
             msg = f"""
             invenio-rdm's NEED_LABEL_TO_ACTION differs from TU Graz's in {label}
             if this is intentional, add to ALLOWED_DIFFERENCES in test-file
-            otherwise fix TUGrazRDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION
+            otherwise fix IformRDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION
             """
             raise ValueError(msg)
