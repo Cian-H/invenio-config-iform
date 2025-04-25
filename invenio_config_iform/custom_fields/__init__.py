@@ -8,7 +8,6 @@
 
 """Custom fields."""
 
-
 from invenio_records_resources.services.custom_fields import BooleanCF
 
 ip_network = BooleanCF(name="ip_network")

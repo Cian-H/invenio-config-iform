@@ -13,9 +13,8 @@ See https://pytest-invenio.readthedocs.io/ for documentation on which test
 fixtures are available.
 """
 
-
-import pytest
 from flask import Flask
+import pytest
 
 from invenio_config_iform import InvenioConfigIform
 

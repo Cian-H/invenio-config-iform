@@ -66,10 +66,7 @@ class RecordSingleIP(Generator):
             return []
 
         # if record has singleip, and the ip of the user matches the allowed ip
-        if (
-            record.get("custom_fields", {}).get("single_ip", False)
-            and self.check_permission()
-        ):
+        if record.get("custom_fields", {}).get("single_ip", False) and self.check_permission():
             return [any_user]
 
         # non of the above - return empty
@@ -94,10 +91,7 @@ class RecordSingleIP(Generator):
         Need provider is disallowed.
         """
         try:
-            if (
-                kwargs["record"]["custom_fields"]["single_ip"]
-                and not self.check_permission()
-            ):
+            if kwargs["record"]["custom_fields"]["single_ip"] and not self.check_permission():
                 return [any_user]
 
         except KeyError:
@@ -138,10 +132,7 @@ class AllowedFromIPNetwork(Generator):
             return []
 
         # if the record has set the ip_range allowance and is in the range
-        if (
-            record.get("custom_fields", {}).get("ip_network", False)
-            and self.check_permission()
-        ):
+        if record.get("custom_fields", {}).get("ip_network", False) and self.check_permission():
             return [any_user]
 
         # non of the above - return empty
@@ -166,10 +157,7 @@ class AllowedFromIPNetwork(Generator):
         Need provider is disallowed.
         """
         try:
-            if (
-                kwargs["record"]["custom_fields"]["ip_network"]
-                and not self.check_permission()
-            ):
+            if kwargs["record"]["custom_fields"]["ip_network"] and not self.check_permission():
                 return [any_user]
 
         except KeyError:

@@ -25,7 +25,6 @@ One can define any action as long as it follows that pattern and
 is verified at the moment it is undertaken.
 """
 
-
 from invenio_administration.generators import Administration
 from invenio_communities.generators import CommunityCurators
 from invenio_rdm_records.services.generators import (
