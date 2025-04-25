@@ -74,37 +74,9 @@ testpaths = ["tests", "invenio_config_iform"]
 live_server_scope = "module"
 
 # Code style tools configuration
-[tool.black]
-line-length = 88
-target-version = ['py312']
-
-[tool.isort]
-profile = "black"
-
-[tool.pydocstyle]
-add_ignore = ["D401"]
-
-# Babel configuration
-[tool.babel.compile_catalog]
-directory = "invenio_config_iform/translations/"
-use-fuzzy = true
-
-[tool.babel.extract_messages]
-copyright_holder = "I-Form Advanced Research Manufacturing Research Centre"
-msgid_bugs_address = "cian.hughes@dcu.ie"
-mapping-file = "babel.ini"
-output-file = "invenio_config_iform/translations/messages.pot"
-add-comments = "NOTE"
-
-[tool.babel.init_catalog]
-input-file = "invenio_config_iform/translations/messages.pot"
-output-dir = "invenio_config_iform/translations/"
-
-[tool.babel.update_catalog]
-input-file = "invenio_config_iform/translations/messages.pot"
-output-dir = "invenio_config_iform/translations/"
-
 [tool.ruff]
+line-length = 100
+target-version = "py313"
 exclude = ["docs"]
 
 [tool.ruff.lint]
@@ -128,3 +100,35 @@ ignore = [
     "TD003",
     "UP009",
 ]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+lines-after-imports = -1
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.pydocstyle]
+add_ignore = ["D401"]
+
+# Babel configuration
+[tool.babel.compile_catalog]
+directory = "invenio_config_iform/translations/"
+use-fuzzy = true
+
+[tool.babel.extract_messages]
+copyright_holder = "I-Form Advanced Research Manufacturing Research Centre"
+msgid_bugs_address = "cian.hughes@dcu.ie"
+mapping-file = "babel.ini"
+output-file = "invenio_config_iform/translations/messages.pot"
+add-comments = "NOTE"
+
+[tool.babel.init_catalog]
+input-file = "invenio_config_iform/translations/messages.pot"
+output-dir = "invenio_config_iform/translations/"
+
+[tool.babel.update_catalog]
+input-file = "invenio_config_iform/translations/messages.pot"
+output-dir = "invenio_config_iform/translations/"
