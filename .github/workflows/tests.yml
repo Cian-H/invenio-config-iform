@@ -16,5 +16,88 @@ on:
         default: "Manual trigger"
 
 jobs:
+  create-strategy:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.requirements.outputs.matrix }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: requirements
+        id: requirements
+        run: |
+          INCLUDE=$(echo '[{
+            "db-service": "postgresql14",
+            "DB_EXTRAS": "postgresql"
+          }, {
+            "search-service": "opensearch2",
+            "SEARCH_EXTRAS": "opensearch2"
+          }]' | jq -c .)
+          PYTHON_VERSIONS=$(
+            grep "Programming Language :: Python ::" setup.cfg |
+              sed -E "s/^.*::\s(.*)$/\1/" |
+              tr "\n" " " |
+              xargs |
+              sed -E -e 's/\s/","/g' -e 's/^/["/' -e 's/$/"]/')
+          DB=$(
+            if grep -q "invenio-db" setup.cfg
+            then
+              echo '"db-services": ["postgresql14"], '
+            else
+              echo ''
+            fi)
+          SEARCH=$(
+            if grep -q "invenio-search" setup.cfg
+            then
+              echo '"search-services": ["opensearch2"], '
+            else
+              echo ''
+            fi)
+          matrix=$(
+            echo "{ \"include\": $INCLUDE, $DB $SEARCH \"python-version\": $PYTHON_VERSIONS }"
+          )
+          echo "-------------------"
+          echo $matrix
+          echo "-------------------"
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+
   tests:
-    uses: Cian-H/.github/.github/workflows/tests.yml@main
+    needs: create-strategy
+    runs-on: ubuntu-latest
+    name: Test (Python ${{matrix.python-version}})
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.create-strategy.outputs.matrix) }}
+
+    env:
+      DB: ${{ matrix.db-service }}
+      SEARCH: ${{ matrix.search-service }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python "${{ matrix.python-version }}"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "${{ matrix.python-version }}"
+          cache: pip
+          cache-dependency-path: setup.cfg
+
+      - name: Install dependencies
+        run: |
+          pip install ".[tests]"
+
+      - name: Show configuration
+        run: |
+          pip --version
+          pip list
+          docker --version
+          docker ps
+
+      - name: Run tests
+        run: |
+          ./run-tests.sh
