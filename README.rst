@@ -41,5 +41,7 @@ Override configs from invenio modules with I-Form configurations:
 * Flask-security
 * Defined routes for I-Form
 
+Forked from https://github.com/tu-graz-library/invenio-config-tugraz
+
 Further documentation is available on
 https://invenio-config-iform.readthedocs.io/
