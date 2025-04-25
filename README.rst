@@ -27,8 +27,8 @@
 .. image:: https://img.shields.io/coveralls/mb-wali/invenio-config-iform.svg
         :target: https://coveralls.io/r/mb-wali/invenio-config-iform
 
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-        :target: https://github.com/psf/black
+.. image:: https://img.shields.io/badge/code%20style-Ruff-D7FF64.svg
+    :target: https://github.com/astral-sh/ruff
 
 invenio module that adds I-Form configs.
 
