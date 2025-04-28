@@ -37,20 +37,20 @@ jobs:
             "SEARCH_EXTRAS": "opensearch2"
           }]' | jq -c .)
           PYTHON_VERSIONS=$(
-            grep "Programming Language :: Python ::" setup.cfg |
+            grep "Programming Language :: Python ::" pyproject.toml |
               sed -E "s/^.*::\s(.*)$/\1/" |
               tr "\n" " " |
               xargs |
               sed -E -e 's/\s/","/g' -e 's/^/["/' -e 's/$/"]/')
           DB=$(
-            if grep -q "invenio-db" setup.cfg
+            if grep -q "invenio-db" pyproject.toml
             then
               echo '"db-services": ["postgresql14"], '
             else
               echo ''
             fi)
           SEARCH=$(
-            if grep -q "invenio-search" setup.cfg
+            if grep -q "invenio-search" pyproject.toml
             then
               echo '"search-services": ["opensearch2"], '
             else
@@ -85,18 +85,16 @@ jobs:
         with:
           python-version: "${{ matrix.python-version }}"
           cache: pip
-          cache-dependency-path: setup.cfg
+          cache-dependency-path: |
+            pyproject.toml
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v6
         with:
           python-version: "${{ matrix.python-version }}"
           enable-cache: true
-          activate-environment: true
           cache-dependency-glob: |
-            **/setup.cfg
-            **/pyproject.toml
-            **/requirements*.txt
+            pyproject.toml
           cache-suffix: ${{ matrix.python-version }}-${{ matrix.db-service || 'nodb' }}-${{ matrix.search-service || 'nosearch' }}
 
       - name: Show configuration
@@ -108,8 +106,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv pip install --upgrade --group tests .
+          uv pip install -e ".[tests]"
+
+          # Install additional extras if specified in the matrix
+          if [ -n "${{ matrix.DB_EXTRAS }}" ]; then
+            uv pip install -e ".[${{ matrix.DB_EXTRAS }}]"
+          fi
+          if [ -n "${{ matrix.SEARCH_EXTRAS }}" ]; then
+            uv pip install -e ".[${{ matrix.SEARCH_EXTRAS }}]"
+          fi
 
       - name: Run tests
         run: |
-          uv run ./run-tests.sh
+          ./run-tests.sh
