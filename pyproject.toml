@@ -57,7 +57,10 @@ invenio_config_iform = "invenio_config_iform.ext:finalize_app"
 [tool.setuptools]
 zip-safe = false
 include-package-data = true
-packages = { find = {} }
+
+[tool.setuptools.packages.find]
+include = ["invenio_config_iform"]
+exclude = [".venv", "tests/*", "*/tests/*", "*.rst", "run-tests.sh"]
 
 [tool.setuptools.dynamic]
 version = { attr = "invenio_config_iform.__version__" }
