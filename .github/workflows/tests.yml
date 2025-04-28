@@ -64,6 +64,10 @@ jobs:
           echo "-------------------"
           echo "matrix=$matrix" >> $GITHUB_OUTPUT
 
+      - name: Install uv
+        run: |
+          pip install uv
+
   tests:
     needs: create-strategy
     runs-on: ubuntu-latest
