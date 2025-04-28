@@ -29,40 +29,14 @@ jobs:
       - name: requirements
         id: requirements
         run: |
-          INCLUDE=$(echo '[{
-            "db-service": "postgresql14",
-            "DB_EXTRAS": "postgresql"
-          }, {
-            "search-service": "opensearch2",
-            "SEARCH_EXTRAS": "opensearch2"
-          }]' | jq -c .)
-          PYTHON_VERSIONS=$(
-            grep "Programming Language :: Python ::" pyproject.toml |
-              sed -E "s/^.*::\s(.*)$/\1/" |
-              tr "\n" " " |
-              xargs |
-              sed -E -e 's/\s/","/g' -e 's/^/["/' -e 's/$/"]/')
-          DB=$(
-            if grep -q "invenio-db" pyproject.toml
-            then
-              echo '"db-services": ["postgresql14"], '
-            else
-              echo ''
-            fi)
-          SEARCH=$(
-            if grep -q "invenio-search" pyproject.toml
-            then
-              echo '"search-services": ["opensearch2"], '
-            else
-              echo ''
-            fi)
-          matrix=$(
-            echo "{ \"include\": $INCLUDE, $DB $SEARCH \"python-version\": $PYTHON_VERSIONS }"
-          )
+          # Define a simple matrix with your Python version
+          # Since we're using pyproject.toml with Python 3.12 requirement
+          echo "matrix={\"include\": [{\"python-version\": \"3.12\"}]}" >> $GITHUB_OUTPUT
+
+          # Print the matrix for debugging
           echo "-------------------"
-          echo $matrix
+          echo "Matrix: {\"include\": [{\"python-version\": \"3.12\"}]}"
           echo "-------------------"
-          echo "matrix=$matrix" >> $GITHUB_OUTPUT
 
   tests:
     needs: create-strategy
@@ -72,9 +46,9 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.create-strategy.outputs.matrix) }}
 
+    # Simplified environment without service variables
     env:
-      DB: ${{ matrix.db-service }}
-      SEARCH: ${{ matrix.search-service }}
+      PYTHON_VERSION: ${{ matrix.python-version }}
 
     steps:
       - name: Checkout
@@ -95,7 +69,7 @@ jobs:
           enable-cache: true
           cache-dependency-glob: |
             pyproject.toml
-          cache-suffix: ${{ matrix.python-version }}-${{ matrix.db-service || 'nodb' }}-${{ matrix.search-service || 'nosearch' }}
+          cache-suffix: ${{ matrix.python-version }}
 
       - name: Show configuration
         run: |
@@ -107,14 +81,6 @@ jobs:
       - name: Install dependencies
         run: |
           uv pip install -e ".[tests]"
-
-          # Install additional extras if specified in the matrix
-          if [ -n "${{ matrix.DB_EXTRAS }}" ]; then
-            uv pip install -e ".[${{ matrix.DB_EXTRAS }}]"
-          fi
-          if [ -n "${{ matrix.SEARCH_EXTRAS }}" ]; then
-            uv pip install -e ".[${{ matrix.SEARCH_EXTRAS }}]"
-          fi
 
       - name: Run tests
         run: |
