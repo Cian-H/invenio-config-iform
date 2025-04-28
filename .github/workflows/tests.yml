@@ -93,15 +93,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv sync --group tests
+          python -m uv sync --group tests
 
       - name: Show configuration
         run: |
-          uv --version
-          uv pip list
+          python -m uv --version
+          python -m uv pip list
           docker --version
           docker ps
 
       - name: Run tests
         run: |
-          uv run ./run-tests.sh
+          python -m uv run ./run-tests.sh
