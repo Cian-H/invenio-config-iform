@@ -64,10 +64,6 @@ jobs:
           echo "-------------------"
           echo "matrix=$matrix" >> $GITHUB_OUTPUT
 
-      - name: Install uv
-        run: |
-          apt install -y uv
-
   tests:
     needs: create-strategy
     runs-on: ubuntu-latest
@@ -91,16 +87,27 @@ jobs:
           cache: pip
           cache-dependency-path: setup.cfg
 
-      - name: Install dependencies
-        run: |
-          uv sync --group tests
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "${{ matrix.python-version }}"
+          enable-cache: true
+          cache-dependency-glob: |
+            **/setup.cfg
+            **/pyproject.toml
+            **/requirements*.txt
+          cache-suffix: ${{ matrix.python-version }}-${{ matrix.db-service || 'nodb' }}-${{ matrix.search-service || 'nosearch' }}
 
       - name: Show configuration
         run: |
           uv --version
-          uv pip list
+          python --version
           docker --version
           docker ps
+
+      - name: Install dependencies
+        run: |
+          uv pip install --upgrade --group tests .
 
       - name: Run tests
         run: |
