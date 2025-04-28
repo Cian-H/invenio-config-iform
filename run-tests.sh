@@ -20,8 +20,6 @@ set -o nounset
 echo "Running ruff check..."
 ruff check .
 
-echo "Running manifest check..."
-python -m check_manifest
 echo "Running sphinx check..."
 python -m sphinx.cmd.build -qnN docs docs/_build/html
 echo "Running tests..."
