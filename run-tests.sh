@@ -4,6 +4,7 @@
 # Copyright (C) 2019-2020 CERN.
 # Copyright (C) 2019-2020 Northwestern University.
 # Copyright (C) 2020-2024 Graz University of Technology.
+# Copyright (C) 2025 I-Form Advanced Research Manufacturing Research Centre.
 #
 # invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -16,8 +17,12 @@ set -o errexit
 # Quit on unbound symbols
 set -o nounset
 
+echo "Running ruff check..."
 ruff check .
 
+echo "Running manifest check..."
 python -m check_manifest
+echo "Running sphinx check..."
 python -m sphinx.cmd.build -qnN docs docs/_build/html
+echo "Running tests..."
 python -m pytest
