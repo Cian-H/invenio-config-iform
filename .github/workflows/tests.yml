@@ -66,7 +66,7 @@ jobs:
 
       - name: Install uv
         run: |
-          pip install uv
+          apt install -y uv
 
   tests:
     needs: create-strategy
@@ -93,15 +93,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m uv sync --group tests
+          uv sync --group tests
 
       - name: Show configuration
         run: |
-          python -m uv --version
-          python -m uv pip list
+          uv --version
+          uv pip list
           docker --version
           docker ps
 
       - name: Run tests
         run: |
-          python -m uv run ./run-tests.sh
+          uv run ./run-tests.sh
