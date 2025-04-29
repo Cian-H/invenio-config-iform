@@ -85,8 +85,6 @@ exclude = ["docs"]
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-    "ANN101",
-    "ANN102",
     "D203",
     "D211",
     "D212",
