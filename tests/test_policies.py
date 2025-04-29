@@ -39,7 +39,7 @@ def test_policies_synced() -> None:
     # check whether same set of `can_<action>`s`
     if extras := set(iform_cans) - set(rdm_cans) - ALLOWED_DIFFERENCES:
         msg = f"""
-        TU Graz's permission-policy has additional fields over invenio-rdm's:{extras}
+        I-Form's permission-policy has additional fields over invenio-rdm's:{extras}
         if this is intentional, add to ALLOWED_DIFFERENCES in test-file
         otherwise remove extraneous fields from IformRDMRecordPermissionPolicy
         """
@@ -47,7 +47,7 @@ def test_policies_synced() -> None:
 
     if missing := set(rdm_cans) - set(iform_cans):
         msg = f"""
-        invenio-rdm's permission-policy has fields unhandled by TU Graz's: {missing}
+        invenio-rdm's permission-policy has fields unhandled by I-Form's: {missing}
         if this is intentional, add to ALLOWED_DIFFERENCES
         otherwise set the corresponding fields in IformRDMRecordPermissionPolicy
         """
@@ -65,7 +65,7 @@ def test_policies_synced() -> None:
         # we can however compare which types (classes) of Generators are used...
         if {type(gen) for gen in iform_can} != {type(gen) for gen in rdm_can}:
             msg = f"""
-            permission-policy for `{can_name}` differs between TU-Graz and invenio-rdm
+            permission-policy for `{can_name}` differs between I-Form and invenio-rdm
             if this is intentional, add to ALLOWED_DIFFERENCES in test-file
             otherwise fix IformRDMRecordPermissionPolicy
             """
@@ -81,7 +81,7 @@ def test_policies_synced() -> None:
 
         if iform_label_to_action.get(label) != rdm_label_to_action.get(label):
             msg = f"""
-            invenio-rdm's NEED_LABEL_TO_ACTION differs from TU Graz's in {label}
+            invenio-rdm's NEED_LABEL_TO_ACTION differs from I-Form's in {label}
             if this is intentional, add to ALLOWED_DIFFERENCES in test-file
             otherwise fix IformRDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION
             """

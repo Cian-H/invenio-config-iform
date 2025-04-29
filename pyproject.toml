@@ -33,8 +33,8 @@ Issues = "https://github.com/Cian-H/invenio-config-iform/issues"
 tests = [
     "invenio-app>=1.5.0",
     "invenio-search[opensearch2]>=2.1.0,<3.0.0",
-    "pytest-black-ng>=0.4.0",
     "pytest-invenio>=2.1.0,<3.0.0",
+    "pytest-ruff>=0.4.1",
     "ruff>=0.5.3",
     "Sphinx>=4.5.0",
 ]
@@ -52,12 +52,12 @@ exclude = [".venv", "tests/*", "*/tests/*", "*.rst", "run-tests.sh"]
 
 # Testing configuration
 [tool.pytest]
-addopts = "--black --isort --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=invenio_config_iform --cov-report=term-missing tests invenio_config_iform"
+addopts = "--ruff --ruff-format --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=invenio_config_iform --cov-report=term-missing tests invenio_config_iform"
 testpaths = ["tests", "invenio_config_iform"]
 live_server_scope = "module"
 
 [tool.pytest.ini_options]
-addopts = "--black --isort --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=invenio_config_iform --cov-report=term-missing tests invenio_config_iform"
+addopts = "--ruff --ruff-format --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=invenio_config_iform --cov-report=term-missing tests invenio_config_iform"
 testpaths = ["tests", "invenio_config_iform"]
 live_server_scope = "module"
 
