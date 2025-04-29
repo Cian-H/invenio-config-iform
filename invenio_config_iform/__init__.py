@@ -8,10 +8,9 @@
 
 """invenio module that adds I-Form configs."""
 
+from .__version__ import version as __version__
 from .ext import InvenioConfigIform
 from .utils import get_identity_from_user_by_email
-
-__version__ = "0.12.5"
 
 __all__ = (
     "InvenioConfigIform",

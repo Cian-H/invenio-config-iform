@@ -42,12 +42,7 @@ from invenio_rdm_records.services.generators import (
     SecretLinks,
     SubmissionReviewer,
 )
-from invenio_records_permissions.generators import (
-    AnyUser,
-    Disable,
-    IfConfig,
-    SystemProcess,
-)
+from invenio_records_permissions.generators import AnyUser, Disable, IfConfig, SystemProcess
 from invenio_records_permissions.policies.records import RecordPermissionPolicy
 from invenio_users_resources.services.permissions import UserManager
 
