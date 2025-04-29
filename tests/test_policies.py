@@ -13,13 +13,13 @@ from invenio_rdm_records.services.permissions import RDMRecordPermissionPolicy
 from invenio_config_iform.permissions.policies import IformRDMRecordPermissionPolicy
 
 ALLOWED_DIFFERENCES = {
+    "can_all",
     "can_authenticated",
     "can_create",
-    "can_search",
-    "can_view",
-    "can_all",
-    "can_search_drafts",
     "can_iform_authenticated",
+    "can_search",
+    "can_search_drafts",
+    "can_view",
 }
 
 

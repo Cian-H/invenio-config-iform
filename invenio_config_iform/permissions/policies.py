@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020-2024 Graz University of Technology.
+# Copyright (C) 2025 I-Form Advanced Manufacturing Research Centre.
 #
 # invenio-config-iform is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
-"""TU Graz permission-policy for RDMRecordService.
+"""I-Form permission-policy for RDMRecordService.
 
 To use, set config-variable `RDM_PERMISSION_POLICY` to `IformRDMRecordPermissionPolicy`.
 
@@ -30,10 +31,12 @@ from invenio_communities.generators import CommunityCurators
 from invenio_rdm_records.services.generators import (
     AccessGrant,
     CommunityInclusionReviewers,
+    IfAtLeastOneCommunity,
     IfDeleted,
     IfExternalDOIRecord,
     IfFileIsLocal,
     IfNewRecord,
+    IfOneCommunity,
     IfRecordDeleted,
     IfRestricted,
     RecordCommunitiesAction,
@@ -67,6 +70,7 @@ class IformRDMRecordPermissionPolicy(RecordPermissionPolicy):
         AccessGrant("manage"),
         SystemProcess(),
     ]
+    can_manage_internal = [SystemProcess()]
     can_curate = can_manage + [AccessGrant("edit"), SecretLinks("edit")]
     can_review = can_curate + [SubmissionReviewer()]
     can_preview = can_curate + [
@@ -106,6 +110,7 @@ class IformRDMRecordPermissionPolicy(RecordPermissionPolicy):
     # Records - reading and creating
     #
     can_search = can_all
+    can_search_revisions = [Administration()]
     can_read = [IfRestricted("record", then_=can_view, else_=can_all)]
 
     can_read_deleted = [
@@ -162,6 +167,7 @@ class IformRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_pid_update = can_review
     can_pid_discard = can_review
     can_pid_delete = can_review
+    can_pid_manage = [SystemProcess()]
 
     #
     # Actions
@@ -175,15 +181,38 @@ class IformRDMRecordPermissionPolicy(RecordPermissionPolicy):
             else_=[IfExternalDOIRecord(then_=[Disable()], else_=can_curate)],
         ),
     ]
-    can_publish = can_review
+    can_publish = [
+        IfConfig(
+            "RDM_COMMUNITY_REQUIRED_TO_PUBLISH",
+            then_=[
+                IfAtLeastOneCommunity(
+                    then_=can_review,
+                    else_=[Administration(), SystemProcess()],
+                ),
+            ],
+            else_=can_review,
+        ),
+    ]
     can_lift_embargo = can_manage
 
     #
     # Record communities
     #
     can_add_community = can_manage
-    can_remove_community = [RecordOwners(), CommunityCurators(), SystemProcess()]
-    can_remove_record = [CommunityCurators()]
+    can_remove_community_ = [RecordOwners(), CommunityCurators(), SystemProcess()]
+    can_remove_community = [
+        IfConfig(
+            "RDM_COMMUNITY_REQUIRED_TO_PUBLISH",
+            then_=[
+                IfOneCommunity(
+                    then_=[Administration(), SystemProcess()],
+                    else_=can_remove_community_,
+                ),
+            ],
+            else_=can_remove_community_,
+        ),
+    ]
+    can_remove_record = [CommunityCurators(), Administration(), SystemProcess()]
     can_bulk_add = [SystemProcess()]
 
     #
