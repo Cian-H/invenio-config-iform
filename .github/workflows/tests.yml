@@ -54,14 +54,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python "${{ matrix.python-version }}"
-        uses: actions/setup-python@v5
-        with:
-          python-version: "${{ matrix.python-version }}"
-          cache: pip
-          cache-dependency-path: |
-            pyproject.toml
-
       - name: Set up uv
         uses: astral-sh/setup-uv@v6
         with:
@@ -74,7 +66,7 @@ jobs:
       - name: Show configuration
         run: |
           uv --version
-          python --version
+          uv run python --version
           docker --version
           docker ps
 
@@ -84,4 +76,4 @@ jobs:
 
       - name: Run tests
         run: |
-          uv run ./run-tests.sh
+          uv run test
