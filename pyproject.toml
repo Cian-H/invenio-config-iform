@@ -29,6 +29,11 @@ dependencies = [
 Homepage = "https://github.com/Cian-H/invenio-config-iform"
 Issues = "https://github.com/Cian-H/invenio-config-iform/issues"
 
+[project.scripts]
+test-docs = "scripts.test_docs:main"
+test-code = "pytest:console_main"
+test = "scripts.test:main"
+
 [dependency-groups]
 tests = [
     "invenio-app>=1.5.0",
@@ -118,6 +123,3 @@ output-dir = "invenio_config_iform/translations/"
 [tool.babel.update_catalog]
 input-file = "invenio_config_iform/translations/messages.pot"
 output-dir = "invenio_config_iform/translations/"
-
-[tool.uv.sources]
-invenio-config-iform = { workspace = true }
