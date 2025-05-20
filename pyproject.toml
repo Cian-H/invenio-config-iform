@@ -53,7 +53,12 @@ invenio_config_iform = "invenio_config_iform.config"
 invenio_config_iform = "invenio_config_iform.ext:finalize_app"
 
 [dependency-groups]
-dev = ["hatch>=1.14.1", "pydocstyle>=6.3.0", "ruff>=0.11.7"]
+dev = [
+    "hatch>=1.14.1",
+    "pre-commit>=4.2.0",
+    "pydocstyle>=6.3.0",
+    "ruff>=0.11.7",
+]
 tests = [
     "invenio-app>=1.5.0",
     "invenio-search[opensearch2]>=2.1.0",
