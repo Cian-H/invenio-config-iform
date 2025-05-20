@@ -15,14 +15,6 @@ repos:
             pass_filenames: false
             stages: [pre-push]
 
-          - id: prettier-with-jinja
-            name: Prettier (with Jinja support)
-            entry: bun run prettier -c
-            language: system
-            types_or:
-                [javascript, jsx, ts, tsx, css, scss, sass, less, yaml, json, markdown, html, jinja]
-            stages: [pre-push]
-
     - repo: https://github.com/astral-sh/ruff-pre-commit
       rev: v0.11.9
       hooks:
