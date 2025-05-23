@@ -87,12 +87,12 @@ exclude = [".venv", "tests/*", "*/tests/*", "*.rst", "run-tests.sh"]
 
 # Testing configuration
 [tool.pytest]
-addopts = "--ruff --ruff-format --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=./invenio_config_iform --cov-report=term-missing tests ./invenio_config_iform"
+addopts = "--ruff --ruff-format --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=invenio_config_iform --cov-report=term-missing tests invenio_config_iform"
 testpaths = ["tests", "invenio_config_iform"]
 live_server_scope = "module"
 
 [tool.pytest.ini_options]
-addopts = "--ruff --ruff-format --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=./invenio_config_iform --cov-report=term-missing tests ./invenio_config_iform"
+addopts = "--ruff --ruff-format --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=invenio_config_iform --cov-report=term-missing tests invenio_config_iform"
 testpaths = ["tests", "invenio_config_iform"]
 live_server_scope = "module"
 
