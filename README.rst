@@ -25,10 +25,10 @@
         :target: https://invenio-config-iform.readthedocs.io/en/latest/?badge=latest
 
 .. image:: https://coveralls.io/repos/github/Cian-H/invenio-config-iform/badge.svg?branch=master
-:target: https://coveralls.io/github/Cian-H/invenio-config-iform?branch=master
+        :target: https://coveralls.io/github/Cian-H/invenio-config-iform?branch=master
 
 .. image:: https://img.shields.io/badge/code%20style-Ruff-D7FF64.svg
-    :target: https://github.com/astral-sh/ruff
+        :target: https://github.com/astral-sh/ruff
 
 invenio module that adds I-Form configs.
 
