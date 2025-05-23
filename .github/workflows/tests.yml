@@ -83,7 +83,7 @@ jobs:
 
       - name: Run tests
         env:
-          PYTEST_ADDOPTS: "--cov-report=xml"
+          PYTEST_ADDOPTS: "--cov-report=lcov"
         run: |
           uv run test
 
@@ -91,4 +91,4 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage.xml
+          file: coverage.lcov
