@@ -1,0 +1,25 @@
+name: Auto Version Tag
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "invenio_config_iform/__about__.py"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "invenio_config_iform/__about__.py"
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Version tag
+        uses: Jorricks/action-python-autotagging@1.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: src/your_package/__about__.py  # Path to your version file
+          variable: __version__              # Name of the version variable
