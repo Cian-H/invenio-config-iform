@@ -1,9 +1,11 @@
 name: Publish to PyPI
 
 on:
-  push:
-    tags:
-      - "*"
+  workflow_run:
+    workflows:
+      - Auto Version Tag
+    types:
+      - completed
 
 jobs:
   publish:
