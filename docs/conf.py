@@ -47,8 +47,8 @@ master_doc = "index"
 
 # General information about the project.
 project = "invenio-config-iform"
-copyright = "2022, TU Graz"
-author = "TU Graz"
+copyright = "2025, I-Form"
+author = "I-Form"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -109,10 +109,10 @@ html_theme = "alabaster"
 
 html_theme_options = {
     "description": "invenio module that adds iform configs.",
-    "github_user": "TU Graz",
+    "github_user": "Cian-H",
     "github_repo": "invenio-config-iform",
-    "github_button": False,
-    "github_banner": True,
+    "github_button": True,
+    "github_banner": False,
     "show_powered_by": False,
     "extra_nav_links": {
         "invenio-config-iform@Github": "https://github.com/Cian-H/invenio-config-iform",
@@ -244,7 +244,7 @@ latex_documents = [
         master_doc,
         "invenio-config-iform.tex",
         "invenio-config-iform Documentation",
-        "Mojib Wali",
+        "I-Form",
         "manual",
     ),
 ]
