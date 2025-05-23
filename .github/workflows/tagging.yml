@@ -1,16 +1,11 @@
 name: Auto Version Tag
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - "invenio_config_iform/__about__.py"
-  pull_request:
-    branches:
-      - master
-    paths:
-      - "invenio_config_iform/__about__.py"
+  workflow_run:
+    workflows:
+      - Tests
+    types:
+      - completed
 
 jobs:
   tag:
